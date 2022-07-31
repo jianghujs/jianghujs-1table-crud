@@ -1,6 +1,6 @@
 <script type="text/x-template" id="classSelectDialog">
   <span>
-    <v-select class="mr-4" @mouseup="classSelectDialog_shown = true" v-model="classSelectDialog_selected"
+    <v-select :class="{'mr-3': !isMobile, 'mr-0': isMobile}" @mouseup="classSelectDialog_shown = true" v-model="classSelectDialog_selected"
       :items="classSelectDialog_dataList" readonly :label="classSelectDialog_title" hide-details dense
               filled single-line hide-no-data hide-selected />
     <v-dialog v-model="classSelectDialog_shown" scrollable max-width="500px">
@@ -58,6 +58,9 @@
         )
         return list;
       },
+        isMobile() {
+          return window.innerWidth < 600;
+        },
     },
     methods: {
       selectItem({ item }) {
