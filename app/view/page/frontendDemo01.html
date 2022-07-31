@@ -10,10 +10,10 @@
   <link href="/<$ ctx.app.config.appId $>/public/css/global.css" rel="stylesheet">
   <link href="/<$ ctx.app.config.appId $>/public/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="/<$ ctx.app.config.appId $>/public/css/vuetify.min.css" rel="stylesheet">
-  <link href="/<$ ctx.app.config.appId $>/public/css/vuetify.custom.css" rel="stylesheet">
   <script src="/<$ ctx.app.config.appId $>/public/js/lib/axios.min.js"></script>
   <script src="/<$ ctx.app.config.appId $>/public/js/lib/vue.js"></script>
   <script src="/<$ ctx.app.config.appId $>/public/js/lib/vuetify.min.js"></script>
+  {% include 'component/globalCSS.html' %}
 </head>
 
 <body>
@@ -22,26 +22,27 @@
     <!-- 菜单栏 -->
     <v-app-bar
         app
-        color="secondary"
         clipped-left
-        dark
-        height="55"
+        height="70"
+        :class="{'px-12': !isMobile, 'px-4': isMobile}"
+        style="z-index: 4;"
         flat
     >
-      <v-toolbar-title class="mr-4 align-center" style="font-size: 14px">
-        <span class="title" style="font-size: 1rem!important;">江湖演示-初级</span>
+      <v-toolbar-title ref="toolbarTitle" class="mr-8 pa-0 align-center" style="font-size: 14px" :style="{'flex': isMobile ? 1 : 'none'}">
+        <span class="title" style="font-size: 18px!important; font-weight: bold">江湖演示-初级</span>
       </v-toolbar-title>
 
       <v-tabs
           v-model="menuSelectedIndex"
           show-arrows
-          slider-size="5"
+          slider-size="0"
+          color="success"
           style="max-width: calc(100vw - 280px)"
       >
-        <v-tabs-slider color="success"></v-tabs-slider>
         <template v-for="item in inMenuList">
           <v-tab
-              class="pl-3 pr-3"
+              class="px-5 headerTab"
+              active-class="headerTabActive"
               :key="item.path"
               @click="jump({ path: item.path })"
           >
@@ -51,114 +52,136 @@
       </v-tabs>
       <v-spacer/>
 
-<!--
-      <div style="white-space: nowrap">
-        <v-btn disabled text class="ml-1 text-none" style="color: #ffffff!important;">
-          admin
-        </v-btn>
-        <v-btn icon small class="ml-1">
-          <v-icon>mdi-account-circle</v-icon>
-        </v-btn>
-      </div>
--->
     </v-app-bar>
 
-    <v-main>
+    <v-main class="d-flex flex-column">
+      <div class="appTitle pt-5" :class="{'px-12': !isMobile, 'px-4': isMobile}" style="font-size: 18px; font-weight: bold">{{breadcrumbs[1].fullText}}</div>
+      <v-breadcrumbs
+          class="pb-4 pt-0"
+          :class="{'px-12': !isMobile, 'px-4': isMobile}"
+          :items="breadcrumbs"
+          divider="-"
+      ></v-breadcrumbs>
+      <div style="flex: 1" :class="{'px-12': !isMobile}">
 
       <!-- 页面主要内容 -->
       <v-container class="fullScreen d-flex flex-column pa-xs-0 pa-0">
-        <v-row class="ma-0 pa-xs-4 align-center flex-none pt-0 " :class="{'pa-4': !isMobile, 'pb-0': !isMobile, 'pa-2': isMobile}">
-          <v-col cols="12" xs="4" sm="4" md="4" xl="4" class="pl-0">
-            <v-btn color="success" small dark class="elevation-0 mr-2" @click="openEditDialog({ item: {} })">新增</v-btn>
-            <span class="body-2">共{{ tableData.length }}条记录</span>
-          </v-col>
+        <v-card>
+          <v-row class="ma-0 pa-xs-4 align-center flex-none pt-0 " :class="{'pa-4': !isMobile, 'pb-0': !isMobile, 'pa-2': isMobile}">
+            <v-col cols="12" xs="4" sm="4" md="4" xl="4" class="pl-0">
+              <v-btn color="success" dark class="elevation-0 mr-2" @click="openEditDialog({ item: {} })">新增</v-btn>
+              <span class="body-2">共{{ tableData.length }}条记录</span>
+            </v-col>
 
-          <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
 
-          <v-col cols="12" xs="8" sm="3" md="2" xl="2" class="pa-xs-0 pa-xs-2 col-sm-8-flex pl-0">
-            <v-select class="cus-v-input mr-2" v-model="currentTableGenderType" :items="[{value: 'all', text: '全部'}, ...constantCollection.gender]"
-                      prefix="性别：" dense item-text="text" item-value="value" dense outlined></v-select>
-          </v-col>
+            <v-col cols="12" xs="8" sm="3" md="2" xl="2" class="pa-xs-0 pa-xs-2 col-sm-8-flex pl-0">
+              <v-select class="cus-v-input mr-2" v-model="currentTableGenderType" :items="[{value: 'all', text: '全部'}, ...constantCollection.gender]"
+                        prefix="性别：" dense item-text="text" item-value="value" dense filled single-line></v-select>
+            </v-col>
 
-          <v-col cols="12" xs="8" sm="4" md="3" xl="3" class="pa-xs-0 pa-xs-2 col-sm-8-flex">
-            <v-text-field v-model="searchInput" label="表格过滤" class="cus-v-input" dense outlined></v-text-field>
-          </v-col>
+            <v-col cols="12" xs="8" sm="4" md="3" xl="3" class="pa-xs-0 pa-xs-2 col-sm-8-flex">
+              <v-text-field v-model="searchInput" label="表格过滤" class="cus-v-input" dense filled single-line></v-text-field>
+            </v-col>
 
-        </v-row>
-        <v-data-table fixed-header
-                      :headers="headers"
-                      :items="tableData"
-                      :search="searchInput"
-                      :footer-props="{ itemsPerPageOptions: [20, 40, 60, 100, -1] }"
-                      :items-per-page="20"
-                      mobile-breakpoint="0"
-                      :loading="isTableLoading"
-                      checkbox-color="success"
-                      class="elevation-0 mt-0 mb-xs-4 flex-fill d-flex flex-column">
-          <template v-slot:item.action="{ item }">
-            <v-btn small class="mr-2 success" @click="openEditDialog({ item })">
-              修改
-            </v-btn>
-            <v-btn small class="mr-2 error" @click="deleteStudent({ item })">
-              删除
-            </v-btn>
-          </template>
-        </v-data-table>
+          </v-row>
+          <v-data-table fixed-header
+                        :headers="headers"
+                        :items="tableData"
+                        :search="searchInput"
+                        :footer-props="{ itemsPerPageOptions: [20, 40, 60, 100, -1] }"
+                        :items-per-page="20"
+                        mobile-breakpoint="0"
+                        :loading="isTableLoading"
+                        checkbox-color="success"
+                        class="elevation-0 mt-0 mb-xs-4 flex-fill d-flex flex-column">
+            <template v-slot:item.action="{ item }">
+              <v-btn small class="mr-2 success" @click="openEditDialog({ item })">
+                修改
+              </v-btn>
+              <v-btn small class="mr-2 error" @click="deleteStudent({ item })">
+                删除
+              </v-btn>
+            </template>
+          </v-data-table>
+        </v-card>
       </v-container>
-
+      <v-overlay app :value="isEditDrawerShow"></v-overlay>
       <!-- 编辑抽屉 -->
-      <v-navigation-drawer v-model="isEditDrawerShow" absolute temporary right width="80%" hide-overlay
+      <v-navigation-drawer v-model="isEditDrawerShow" fixed temporary right width="80%" hide-overlay
         class="elevation-24">
         <v-form v-model="isFormValid" v-if="isEditDrawerShow" ref="form" lazy-validation>
-          <v-row>
-            <span class="title pa-6">{{ currentClickButton.title }}信息</span>
+          <v-row class="pt-8">
+            <span class="title pa-6" :class="{'pl-12': !isMobile, 'pl-8': isMobile}">{{ currentClickButton.title }}信息</span>
             <v-spacer></v-spacer>
-            <v-btn class="mt-7 mr-8 elevation-0" fab x-small @click="isEditDrawerShow = false">
+            <v-btn class="mt-6 elevation-0" :class="{'mr-16': !isMobile, 'mr-8': isMobile}" fab x-small @click="isEditDrawerShow = false">
               <v-icon dark>mdi-close</v-icon>
             </v-btn>
           </v-row>
-          <v-row class="pa-0 ma-0 pa-xs-4 pb-xs-4 flex-none">
-            <v-col cols="12" sm="12" md="4" xl="3" class="pa-xs-0 pb-xs-4 pb-3">
-              <v-text-field class="cus-v-input mr-2" dense outlined label="学生ID" v-model="editItem.studentId" :rules="requireRules"></v-text-field>
+          <v-row cols="12" sm="12" md="4" xl="3" :class="{'px-10': !isMobile, 'px-4': isMobile, 'pb-7': isMobile}">
+            <v-col cols="12" sm="12" md="4" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
+              <span style="color: #3F4254;" :style="{'line-height': isMobile ? '20px' : '42px', 'font-weight': isMobile ? 400 : 500}">学生ID</span>
+              <v-text-field class="cus-v-input mr-2" dense single-line filled label="学生ID" v-model="editItem.studentId"
+                            :rules="requireRules"></v-text-field>
             </v-col>
-            <v-col cols="12" sm="12" md="4" xl="3" class="pa-xs-0 pb-xs-4 pb-3">
-              <v-select class="cus-v-input mr-2" dense outlined clearable label="班级ID" v-model="editItem.classId" :items="constantCollection.classId"></v-select>
+            <v-col cols="12" sm="12" md="4" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
+              <span style="color: #3F4254;" :style="{'line-height': isMobile ? '20px' : '42px', 'font-weight': isMobile ? 400 : 500}">班级ID</span>
+              <v-select class="cus-v-input mr-2" color="success" item-color="success" dense single-line filled clearable label="班级ID" v-model="editItem.classId"
+                        :items="constantCollection.classId"></v-select>
             </v-col>
-            <v-col cols="12" sm="12" md="4" xl="3" class="pa-xs-0 pb-xs-4 pb-3">
-              <v-text-field class="cus-v-input mr-2" dense outlined label="学生名字" v-model="editItem.name"></v-text-field>
+            <v-col cols="12" sm="12" md="4" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
+              <span style="color: #3F4254;" :style="{'line-height': isMobile ? '20px' : '42px', 'font-weight': isMobile ? 400 : 500}">学生名字</span>
+              <v-text-field class="cus-v-input mr-2" dense single-line filled label="学生名字"
+                            v-model="editItem.name"></v-text-field>
             </v-col>
-            <v-col cols="12" sm="12" md="4" xl="3" class="pa-xs-0 pb-xs-4 pb-3">
-              <v-select class="cus-v-input mr-2" dense outlined clearable label="年级" v-model="editItem.level" :items="constantCollection.level"></v-select>
+            <v-col cols="12" sm="12" md="4" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
+              <span style="color: #3F4254;" :style="{'line-height': isMobile ? '20px' : '42px', 'font-weight': isMobile ? 400 : 500}">年级</span>
+              <v-select class="cus-v-input mr-2" color="success" item-color="success" dense single-line filled clearable label="年级" v-model="editItem.level"
+                        :items="constantCollection.level"></v-select>
             </v-col>
-            <v-col cols="12" sm="12" md="4" xl="3" class="pa-xs-0 pb-xs-4 pb-3">
-              <v-select class="cus-v-input mr-2" dense outlined clearable label="性别" v-model="editItem.gender" :items="constantCollection.gender"></v-select>
+            <v-col cols="12" sm="12" md="4" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
+              <span style="color: #3F4254;" :style="{'line-height': isMobile ? '20px' : '42px', 'font-weight': isMobile ? 400 : 500}">性别</span>
+              <v-select class="cus-v-input mr-2" color="success" item-color="success" dense single-line filled clearable label="性别" v-model="editItem.gender"
+                        :items="constantCollection.gender"></v-select>
             </v-col>
-            <v-col cols="12" sm="12" md="4" xl="3" class="pa-xs-0 pb-xs-4 pb-3">
+            <v-col cols="12" sm="12" md="4" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
+              <span style="color: #3F4254;" :style="{'line-height': isMobile ? '20px' : '42px', 'font-weight': isMobile ? 400 : 500}">出生日期</span>
               <v-menu class="cus-v-input mr-2" offset-y max-width="290">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-text-field class="cus-v-input mr-2" dense outlined v-on="on" label="出生日期" v-model="editItem.dateOfBirth"></v-text-field>
+                  <v-text-field class="cus-v-input mr-2" dense single-line filled v-on="on" label="出生日期"
+                                v-model="editItem.dateOfBirth"></v-text-field>
                 </template>
                 <v-date-picker color="success" elevation="20" v-model="editItem.dateOfBirth"></v-date-picker>
               </v-menu>
             </v-col>
-            <v-col cols="12" sm="12" md="4" xl="3" class="pa-xs-0 pb-xs-4 pb-3">
-              <v-text-field class="cus-v-input mr-2" dense outlined label="身高" v-model="editItem.bodyHeight"></v-text-field>
+            <v-col cols="12" sm="12" md="4" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
+              <span style="color: #3F4254;" :style="{'line-height': isMobile ? '20px' : '42px', 'font-weight': isMobile ? 400 : 500}">身高</span>
+              <v-text-field class="cus-v-input mr-2" dense single-line filled label="身高"
+                            v-model="editItem.bodyHeight"></v-text-field>
             </v-col>
-            <v-col cols="12" sm="12" md="4" xl="3" class="pa-xs-0 pb-xs-4 pb-3">
-              <v-select class="cus-v-input mr-2" dense outlined clearable label="学生状态" v-model="editItem.studentStatus" :items="constantCollection.studentStatus"></v-select>
+            <v-col cols="12" sm="12" md="4" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
+              <span style="color: #3F4254;" :style="{'line-height': isMobile ? '20px' : '42px', 'font-weight': isMobile ? 400 : 500}">学生状态</span>
+              <v-select class="cus-v-input mr-2" color="success" item-color="success" dense single-line filled clearable label="学生状态"
+                        v-model="editItem.studentStatus"
+                        :items="constantCollection.studentStatus"></v-select>
             </v-col>
-            <v-col cols="12" sm="12" md="4" xl="3" class="pa-xs-0 pb-xs-4 pb-3">
-              <v-text-field class="cus-v-input mr-2" dense outlined label="备注" v-model="editItem.remarks"></v-text-field>
+            <v-col cols="12" sm="12" md="12" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
+              <span style="color: #3F4254;" :style="{'line-height': isMobile ? '20px' : '42px', 'font-weight': isMobile ? 400 : 500}">备注</span>
+              <v-textarea class="cus-v-input mr-2" no-resize dense single-line filled label="备注"
+                          v-model="editItem.remarks"></v-textarea>
             </v-col>
           </v-row>
-          <v-row class="justify-end pr-6">
-            <v-btn v-if="editItem.id" color="success" small @click="updateStudent" :style="{width: isMobile ? 'calc(100% - 45px)' : '200px'}" :class="{'mb-2': isMobile, 'mr-4': isMobile}">修改</v-btn>
-            <v-btn v-if="!editItem.id" color="success" small @click="insertStudent" :style="{width: isMobile ? 'calc(100% - 45px)' : '200px'}" :class="{'mb-2': isMobile, 'mr-4': isMobile}">创建</v-btn>
-            <v-btn class="ml-2" small @click="isEditDrawerShow = false" :style="{width: isMobile ? 'calc(100% - 45px)' : '200px'}" :class="{'mr-4': isMobile}">取消</v-btn>
+
+          <v-row class="justify-end mx-0 mt-8" :class="{'px-10': !isMobile, 'px-4': isMobile, 'mb-8': isMobile}">
+            <v-btn v-if="editItem.id" color="success" @click="updateStudent">修改</v-btn>
+            <v-btn v-if="!editItem.id" color="success" @click="insertStudent">创建</v-btn>
+            <v-btn class="elevation-0 mr-2 ml-2"
+                   @click="isEditDrawerShow = false">取消
+            </v-btn>
           </v-row>
         </v-form>
       </v-navigation-drawer>
-
+      </div>
     </v-main>
   </v-app>
 </div>
@@ -203,6 +226,19 @@
       searchInput: null,
       isTableLoading: true,
       tableDataFromBackend: [],
+      breadcrumbs: [
+        {
+          text: '首页',
+          fullText: '首页',
+          disabled: true,
+        },
+        {
+          text: '前端对接-学习',
+          fullText: '前端对接-学习',
+          disabled: true,
+          href: ''
+        },
+      ],
       headers: [
         {text: "学生ID", value: "studentId", width: 120, class: 'fixed', cellClass: 'fixed'},
         {text: "班级ID", value: "classId", width: 140},

@@ -131,7 +131,7 @@ th:not(.v-picker th) {
   max-height: calc(100vh - 197px);
 }
 .v-data-table--fixed-header>.v-data-table__wrapper>table>thead>tr>th.fixed {
-  z-index: 5!important;
+  z-index: 3!important;
 }
 .v-application .align-center.text-start {
   text-align: center!important;
@@ -249,9 +249,6 @@ body .v-application .title {
 body .v-text-field .v-label {
   color: rgba(0,0,0,.3);
 }
-body .theme--light.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot:hover {
-  background: #edeff1 !important;
-}
 body .theme--light.v-input, body .theme--light.v-input input, body .theme--light.v-input textarea, body .v-select.v-input--dense .v-select__selection--comma {
   font-size: 14px!important;
   font-weight: 500!important;
@@ -273,8 +270,18 @@ body .v-text-field>.v-input__control>.v-input__slot:after {
 body .v-breadcrumbs li {
   font-size: 12px!important;
 }
+
 body .theme--light.v-text-field--filled>.v-input__control>.v-input__slot {
   background: #f5f8fa;
+}
+body .outSideMain .theme--light.v-text-field--filled>.v-input__control>.v-input__slot {
+  background: #ffffff;
+}
+body .theme--light.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot:hover {
+  background: #edeff1 !important;
+}
+body .outSideMain .theme--light.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state)>.v-input__control>.v-input__slot:hover {
+  background: #dcdcdc !important;
 }
 body .v-menu__content {
   box-shadow: 0 3px 14px 2px rgb(0 0 0 / 8%);

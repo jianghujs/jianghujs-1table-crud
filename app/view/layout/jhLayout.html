@@ -149,13 +149,19 @@
       </v-app-bar>
 
       <v-main class="d-flex flex-column">
-        <div class="appTitle pt-5" :class="{'px-12': !isMobile, 'px-4': isMobile}" style="font-size: 18px; font-weight: bold">{{breadcrumbs[1].fullText}}</div>
-        <v-breadcrumbs
-            class="pb-4 pt-0"
-            :class="{'px-12': !isMobile, 'px-4': isMobile}"
-            :items="breadcrumbs"
-            divider="-"
-        ></v-breadcrumbs>
+        <div class="d-flex" :class="{'px-12': !isMobile, 'px-4': isMobile}">
+          <div>
+            <div class="appTitle pt-5" style="font-size: 18px; font-weight: bold">{{breadcrumbs[1].fullText}}</div>
+            <v-breadcrumbs
+                class="pb-4 pt-0 pl-0"
+                :items="breadcrumbs"
+                divider="-"
+            ></v-breadcrumbs>
+          </div>
+          <div style="flex: 1" class="pt-2 outSideMain">
+            <slot name='serverSearch'></slot>
+          </div>
+        </div>
         <div style="flex: 1" :class="{'px-12': !isMobile, 'pt-4': fullScreen}">
           <slot></slot>
         </div>
