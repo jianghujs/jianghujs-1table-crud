@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 50738
  Source Host           : localhost:3306
- Source Schema         : jianghujs_1table_crud
+ Source Schema         : jianghujs_demo_onetable
 
  Target Server Type    : MySQL
  Target Server Version : 50738
  File Encoding         : 65001
 
- Date: 31/07/2022 20:49:49
+ Date: 31/07/2022 20:56:00
 */
 
 SET NAMES utf8mb4;
@@ -143,7 +143,7 @@ BEGIN;
 INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (2, 'help', '帮助', 'dynamicInMenu', '11', 'insert', NULL, NULL, NULL);
 INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (3, 'login', '登陆', '', '', 'insert', NULL, NULL, NULL);
 INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (6, 'manual', '操作手册', 'showInMenu', '0', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (28, 'frontendDemo02', '前端-单表增删改查', 'showInMenu', '4', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (28, 'frontendDemo', '前端-单表增删改查', 'showInMenu', '4', 'insert', NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -236,6 +236,12 @@ CREATE TABLE `_resource_request_log` (
   KEY `resourceId_index` (`resourceId`),
   KEY `packageId_index` (`packageId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4752 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='文件表; 软删除未启用;';
+
+-- ----------------------------
+-- Records of _resource_request_log
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for _role
@@ -382,7 +388,7 @@ INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `all
 INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (18, '*', 'login', '*', 'manual', 'allow', '操作手册页; 开放给登陆用户;', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (19, '*', 'login', '*', 'help', 'allow', '帮助页; 开放给登陆用户;', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (21, '*', 'adminGroup', 'administrator', '*', 'allow', '所有页面; 开放给应用管理者;', 'insert', NULL, NULL, NULL);
-INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (28, '*', 'gaibang', 'boss,disciple', 'frontendDemo02', 'allow', 'studentManagement02&studentManagement03; 开放给丐帮掌门&门徒;', 'insert', NULL, NULL, NULL);
+INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (28, '*', 'gaibang', 'boss,disciple', 'frontendDemo', 'allow', '开放给丐帮掌门&门徒;', 'insert', NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------

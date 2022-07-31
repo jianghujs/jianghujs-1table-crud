@@ -10,7 +10,7 @@
    port: 3306,
    user: 'root',
    password: '123456',
-   database: 'jianghujs_demo_onetable'
+   database: 'jianghujs_1table_crud'
    ```
 4. 启动 npm run dev
    
@@ -18,9 +18,9 @@
 
 ```sql
 # 数据库初始化
-create database `jianghujs_demo_onetable` default character set utf8mb4 collate utf8mb4_bin;
-use jianghujs_demo_onetable;
-# 运行 sql/jianghujs_demo_onetable.sql 文件
+create database `jianghujs_1table_crud` default character set utf8mb4 collate utf8mb4_bin;
+use jianghujs_1table_crud;
+# 运行 sql/init.sql 文件
 ```
 
 ## 测试账号 & 测试环境
@@ -29,12 +29,8 @@ use jianghujs_demo_onetable;
 
 ## 页面
 
-1. 应用协议: studentManagement01.html
+1. 应用协议: frontendDemo.html
    * 增删改查（select，insert，softUpdate，softDelete）
-2. 前端对接: studentManagement03.html
-3. 前端优化: studentManagement04.html
-4. 服务端搜索: studentManagement05.html
-   * 应用协议：sql演示
 
 ## FAQ
 
