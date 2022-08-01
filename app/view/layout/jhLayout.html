@@ -151,7 +151,7 @@
       <v-main class="d-flex flex-column">
         <div class="d-flex" :class="{'px-12': !isMobile, 'px-4': isMobile}">
           <div>
-            <div class="appTitle pt-5" style="font-size: 18px; font-weight: bold">{{breadcrumbs[1].fullText}}</div>
+            <div class="appTitle pt-5" style="font-size: 18px; font-weight: bold"><slot name='breadcrumbsTitle'>{{breadcrumbs[1].fullText}}</slot></div>
             <v-breadcrumbs
                 class="pb-4 pt-0 pl-0"
                 :items="breadcrumbs"
@@ -292,10 +292,9 @@ Vue.component("jh-layout", {
         title = `${title.slice(0, 5)}...${title.slice(title.length - 4, title.length)}`
       }
       // || (_.includes(['dynamicInMenu', 'avatarInMenu'], page.pageType) && currentPageId === page.pageId)
-      const isDynamicInMenu = title && page.pageType === 'dynamicInMenu';
       this.inMenuList = _
           .chain(this.userInfo.allowPageList)
-          .filter(page => page.pageType === 'showInMenu')
+          .filter(page => page.pageType === 'showInMenu' || (_.includes(['dynamicInMenu', 'avatarInMenu'], page.pageType) && currentPageId === page.pageId))
           .map((page) => {
             if(currentPageId === page.pageId) {
               this.breadcrumbs[1].text = page.pageName.split('-')[0];
