@@ -29,8 +29,7 @@
          <v-text-field v-model="searchInput" label="表格过滤" class="cus-v-input" dense filled single-line></v-text-field>
        </v-col>
      </v-row>
-     <v-data-table fixed-header
-                   :headers="headers"
+     <v-data-table :headers="headers"
                    :items="tableData"
                    :search="searchInput"
                    :footer-props="{ itemsPerPageOptions: [20, 40, 60, 100, -1] }"
@@ -168,7 +167,6 @@
   })
 </script>
 {% include 'layout/jhLayout.html' %}
-{% include 'common/resetTableMaxHeight.html' %}
 
 <script type="module">
 new Vue({
