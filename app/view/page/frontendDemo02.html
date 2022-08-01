@@ -58,9 +58,8 @@
     </v-data-table>
   </v-card>
 </v-container>
-<v-overlay app :value="isEditDrawerShow"></v-overlay>
 <!-- 编辑抽屉 -->
-<v-navigation-drawer fixed app v-model="isEditDrawerShow" temporary right width="80%" hide-overlay
+<v-navigation-drawer fixed app v-model="isEditDrawerShow" temporary right width="80%"
                      class="elevation-24">
   <v-form v-model="isFormValid" v-if="isEditDrawerShow" ref="form" lazy-validation>
     <v-row class="pt-8">
