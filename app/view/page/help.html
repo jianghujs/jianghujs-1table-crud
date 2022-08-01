@@ -2,7 +2,7 @@
 
 {% block vue_template %}
 
-<jh-layout>
+<jh-layout-v3>
   <div v-if="error.errorCode">
     <h2>{{ error.errorCode }} : {{ error.errorReason }}</h2>
     <hr/>
@@ -11,7 +11,7 @@
   <div v-else>
     <h2>亲，你似乎迷路了？</h2>
   </div>
-</jh-layout>
+</jh-layout-v3>
 
 {% endblock %}
 

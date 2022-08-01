@@ -2,7 +2,7 @@
 
 {% block vue_template %}
 
-<jh-layout>
+<jh-layout-v3>
   <template slot="serverSearch">
     <div style="text-align: right;" :style="{'line-height': isMobile ? '22px' : '64px', 'font-size': isMobile ? '12px' : '14px'}" :class="{ 'mt-3': isMobile}">
       <span class="red pa-2" style="border-radius: 4px; color: #ffffff">备注: 需要为当前用户创建一条学生数据, 用户只能看到自己所在班级的数据。</span>
@@ -117,7 +117,7 @@
     </v-form>
   </v-navigation-drawer>
 
-</jh-layout>
+</jh-layout-v3>
 
 {% endblock %}
 

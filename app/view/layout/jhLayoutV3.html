@@ -1,4 +1,4 @@
-<template id="jhLayout">
+<template id="jhLayout-v3">
   <v-app id="inspire" mobile-breakpoint="sm">
     <div v-if="layoutLoading" class="text-center mt-10">
       <v-progress-circular
@@ -169,11 +169,11 @@
     </template>
   </v-app>
 </template>
-<!--jhLayout.html start-->
+<!--jhLayoutV3.html start-->
 <script>
-Vue.component("jh-layout", {
+Vue.component("jh-layout-v3", {
   vuetify: new Vuetify(),
-  name: 'jh-layout',
+  name: 'jh-layout-v3',
   props: {
     fullScreen: {
       type: Boolean,
@@ -353,7 +353,7 @@ Vue.component("jh-layout", {
       }
     }
   },
-  template: '#jhLayout',
+  template: '#jhLayout-v3',
 })
 </script>
-<!--jhLayout.html end-->
+<!--jhLayoutV3.html end-->

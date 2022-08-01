@@ -2,7 +2,7 @@
 
 {% block vue_template %}
 
-<jh-layout>
+<jh-layout-v3>
 
 <!-- 页面主要内容 -->
 <v-container class="fullScreen d-flex flex-column pa-xs-0 pa-0">
@@ -134,13 +134,11 @@
   </v-form>
 </v-navigation-drawer>
 
-</jh-layout>
+</jh-layout-v3>
 
 {% endblock %}
 
 {% block vue_body %}
-
-{% include 'layout/jhLayout.html' %}
 
 <script type="module">
 new Vue({

@@ -2,7 +2,7 @@
 
 {% block vue_template %}
 
-<jh-layout>
+<jh-layout-v3>
 <template slot="serverSearch">
   <v-row class="ma-0 align-center flex-none pa-0" :class="{'pa-2': !isMobile, 'pa-2': isMobile}" style="justify-content: end">
     <v-col cols="12" sm="12" md="3" xl="2" class="pa-xs-0  pb-3" :class="{'pb-xs-4': !isMobile}">
@@ -133,7 +133,7 @@
   </v-form>
 </v-navigation-drawer>
 
-</jh-layout>
+</jh-layout-v3>
 
 {% endblock %}
 
@@ -187,7 +187,7 @@
   })
 </script>
 
-{% include 'layout/jhLayout.html' %}
+
 
 <script type="module">
 new Vue({

@@ -2,7 +2,7 @@
 
 {% block vue_template %}
 
-<jh-layout>
+<jh-layout-v3>
 
   <!-- 页面主要内容 -->
   <v-container class="fullScreen d-flex flex-column pa-xs-0 pa-0">
@@ -124,7 +124,7 @@
     </v-form>
   </v-navigation-drawer>
 
-</jh-layout>
+</jh-layout-v3>
 
 {% endblock %}
 
@@ -186,7 +186,6 @@
     editItem: {},
   })
 </script>
-{% include 'layout/jhLayout.html' %}
 {% include 'component/classSelectDialog.html' %}
 
 <script type="module">
