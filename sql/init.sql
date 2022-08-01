@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : db_of_openjianghu2
  Source Server Type    : MySQL
- Source Server Version : 50738
- Source Host           : localhost:3306
+ Source Server Version : 50737
+ Source Host           : 127.0.0.1:40002
  Source Schema         : jianghujs_1table_crud
 
  Target Server Type    : MySQL
- Target Server Version : 50738
+ Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 31/07/2022 21:09:56
+ Date: 01/08/2022 16:51:23
 */
 
 SET NAMES utf8mb4;
@@ -126,6 +126,7 @@ DROP TABLE IF EXISTS `_page`;
 CREATE TABLE `_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pageId` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'pageId',
+  `pageFile` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'page文件指定; 默认使用pageId.html',
   `pageName` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'page name',
   `pageType` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '页面类型; showInMenu, dynamicInMenu',
   `sort` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
@@ -140,17 +141,18 @@ CREATE TABLE `_page` (
 -- Records of _page
 -- ----------------------------
 BEGIN;
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (2, 'help', '帮助', 'dynamicInMenu', '11', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (3, 'login', '登陆', '', '', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (6, 'manual', '操作手册', 'showInMenu', '0', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (25, 'protocolDemo', '应用协议', 'showInMenu', '2', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (27, 'frontendDemo01', '前端对接', 'showInMenu', '3', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (28, 'frontendDemo02', '前端-jianghuAxios', 'showInMenu', '4', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (29, 'resourceHook', '前端-resouceHook', 'showInMenu', '6', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (31, 'backendSearchDemo', '服务端搜索', 'showInMenu', '7', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (32, 'dataAccessRight', '数据权限', 'showInMenu', '8', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (34, 'uiAction', 'uiAction', 'showInMenu', '5', 'insert', NULL, NULL, NULL);
-INSERT INTO `_page` (`id`, `pageId`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (35, 'uiActionComponent', 'uiAction-组件通信', 'showInMenu', '5', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (2, 'help', NULL, '帮助', 'dynamicInMenu', '11', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (3, 'login', NULL, '登陆', '', '', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (6, 'manual', NULL, '操作手册', 'showInMenu', '0', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (25, 'protocolDemo', NULL, '应用协议', 'showInMenu', '2', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (26, 'pageFileDemo', 'pageFileDemo02.html', 'page指定Demo', 'showInMenu', '2', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (27, 'frontendDemo01', NULL, '前端对接', 'showInMenu', '3', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (28, 'frontendDemo02', NULL, '前端-jianghuAxios', 'showInMenu', '4', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (29, 'resourceHook', NULL, '前端-resouceHook', 'showInMenu', '6', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (31, 'backendSearchDemo', NULL, '服务端搜索', 'showInMenu', '7', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (32, 'dataAccessRight', NULL, '数据权限', 'showInMenu', '8', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (34, 'uiAction', NULL, 'uiAction', 'showInMenu', '5', 'insert', NULL, NULL, NULL);
+INSERT INTO `_page` (`id`, `pageId`, `pageFile`, `pageName`, `pageType`, `sort`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (35, 'uiActionComponent', NULL, 'uiAction-组件通信', 'showInMenu', '5', 'insert', NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -170,16 +172,12 @@ CREATE TABLE `_record_history` (
   PRIMARY KEY (`id`),
   KEY `index_record_id` (`recordId`),
   KEY `index_table_action` (`table`,`operation`)
-) ENGINE=InnoDB AUTO_INCREMENT=2144 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='数据历史表';
+) ENGINE=InnoDB AUTO_INCREMENT=2145 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='数据历史表';
 
 -- ----------------------------
 -- Records of _record_history
 -- ----------------------------
 BEGIN;
-INSERT INTO `_record_history` (`id`, `table`, `recordId`, `recordContent`, `packageContent`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (2140, '_user_session', 22, '{\"id\":22,\"userId\":\"admin\",\"userIp\":\"127.0.0.1\",\"userIpRegion\":\"\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36\",\"deviceId\":\"127.0.0.1:7001_Mac.10.15.7_f6d7bfad_chrome\",\"deviceType\":\"web\",\"socketStatus\":\"offline\",\"authToken\":\"BeaDlyfILrqMOeHcdtzvfidFCToL4IwXzLNr\",\"operation\":\"jhInsert\",\"operationByUserId\":null,\"operationByUser\":null,\"operationAt\":\"2022-07-30T20:20:20+08:00\"}', '{\"appData\":{\"pageId\":\"login\",\"actionId\":\"passwordLogin\",\"actionData\":{\"userId\":\"admin\",\"password\":\"123456\",\"deviceId\":\"127.0.0.1:7001_Mac.10.15.7_f6d7bfad_chrome\"},\"appId\":\"jianghujs_demo_onetable\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36\"},\"packageId\":\"1659183620108_8184810\",\"packageType\":\"httpRequest\"}', 'jhInsert', NULL, NULL, '2022-07-30T20:20:20+08:00');
-INSERT INTO `_record_history` (`id`, `table`, `recordId`, `recordContent`, `packageContent`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (2141, '_user_session', 22, '{\"id\":22,\"userId\":\"admin\",\"userIp\":\"127.0.0.1\",\"userIpRegion\":\"\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36\",\"deviceId\":\"127.0.0.1:7001_Mac.10.15.7_f6d7bfad_chrome\",\"deviceType\":\"web\",\"socketStatus\":\"offline\",\"authToken\":\"\",\"operation\":\"jhUpdate\",\"operationByUserId\":\"admin\",\"operationByUser\":\"系统管理员\",\"operationAt\":\"2022-07-31T13:57:38+08:00\"}', '{\"appData\":{\"pageId\":\"allPage\",\"actionId\":\"logout\",\"appId\":\"jianghujs_demo_onetable\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36\",\"actionData\":{}},\"packageId\":\"1659247058595_6972776\",\"packageType\":\"httpRequest\"}', 'jhUpdate', 'admin', '系统管理员', '2022-07-31T13:57:38+08:00');
-INSERT INTO `_record_history` (`id`, `table`, `recordId`, `recordContent`, `packageContent`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (2142, '_user_session', 22, '{\"id\":22,\"userId\":\"admin\",\"userIp\":\"127.0.0.1\",\"userIpRegion\":\"\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36\",\"deviceId\":\"127.0.0.1:7001_Mac.10.15.7_f6d7bfad_chrome\",\"deviceType\":\"web\",\"socketStatus\":\"offline\",\"authToken\":\"ZZYNT3RJxJo-nir8aKCBJWSg7-qTIQUZ-D3S\",\"operation\":\"jhUpdate\",\"operationByUserId\":\"admin\",\"operationByUser\":\"系统管理员\",\"operationAt\":\"2022-07-31T13:58:53+08:00\"}', '{\"appData\":{\"pageId\":\"login\",\"actionId\":\"passwordLogin\",\"actionData\":{\"userId\":\"admin\",\"password\":\"123456\",\"deviceId\":\"127.0.0.1:7001_Mac.10.15.7_f6d7bfad_chrome\"},\"appId\":\"jianghujs_demo_onetable\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36\"},\"packageId\":\"1659247132995_1610348\",\"packageType\":\"httpRequest\"}', 'jhUpdate', 'admin', '系统管理员', '2022-07-31T13:58:53+08:00');
-INSERT INTO `_record_history` (`id`, `table`, `recordId`, `recordContent`, `packageContent`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (2143, '_user_session', 22, '{\"id\":22,\"userId\":\"admin\",\"userIp\":\"127.0.0.1\",\"userIpRegion\":\"\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36\",\"deviceId\":\"127.0.0.1:7001_Mac.10.15.7_f6d7bfad_chrome\",\"deviceType\":\"web\",\"socketStatus\":\"offline\",\"authToken\":\"e4_zCdPdmpPfgm4vVPPJDl-Xel7wSZ_ScWg_\",\"operation\":\"jhUpdate\",\"operationByUserId\":\"admin\",\"operationByUser\":\"系统管理员\",\"operationAt\":\"2022-07-31T21:03:41+08:00\"}', '{\"appData\":{\"pageId\":\"login\",\"actionId\":\"passwordLogin\",\"actionData\":{\"userId\":\"admin\",\"password\":\"123456\",\"deviceId\":\"127.0.0.1:7001_Mac.10.15.7_f6d7bfad_chrome\"},\"appId\":\"jianghujs_1table_crud\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36\"},\"packageId\":\"1659272621659_5317674\",\"packageType\":\"httpRequest\"}', 'jhUpdate', 'admin', '系统管理员', '2022-07-31T21:03:41+08:00');
 COMMIT;
 
 -- ----------------------------
@@ -271,7 +269,7 @@ CREATE TABLE `_resource_request_log` (
   PRIMARY KEY (`id`),
   KEY `resourceId_index` (`resourceId`),
   KEY `packageId_index` (`packageId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4757 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='文件表; 软删除未启用;';
+) ENGINE=InnoDB AUTO_INCREMENT=4771 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='文件表; 软删除未启用;';
 
 -- ----------------------------
 -- Records of _resource_request_log
@@ -453,7 +451,7 @@ BEGIN;
 INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (17, '*', 'public', '*', 'login', 'allow', '登陆页; 开放给所有用户;', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (18, '*', 'login', '*', 'manual', 'allow', '操作手册页; 开放给登陆用户;', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (19, '*', 'login', '*', 'help', 'allow', '帮助页; 开放给登陆用户;', 'insert', NULL, NULL, NULL);
-INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (21, '*', 'adminGroup', 'appAdmin', '*', 'allow', '所有页面; 开放给应用管理者;', 'insert', NULL, NULL, NULL);
+INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (21, '*', 'adminGroup', 'administrator', '*', 'allow', '所有页面; 开放给应用管理者;', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (27, '*', 'wudang', 'boss,disciple', 'protocolDemo', 'allow', 'studentManagement01; 开放给武当派派掌门&门徒;', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (28, '*', 'gaibang', 'boss,disciple', 'frontendDemo01,frontendDemo02', 'allow', 'studentManagement02&studentManagement03; 开放给丐帮掌门&门徒;', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_page` (`id`, `user`, `group`, `role`, `page`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (29, '*', 'huashan', 'boss,disciple', 'backendSearchDemo', 'allow', 'studentManagement04; 开放给华山派掌门&门徒;', 'insert', NULL, NULL, NULL);
@@ -490,7 +488,7 @@ INSERT INTO `_user_group_role_resource` (`id`, `user`, `group`, `role`, `resourc
 INSERT INTO `_user_group_role_resource` (`id`, `user`, `group`, `role`, `resource`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (33, '*', 'login', '*', 'allPage.userInfo', 'allow', '用户个人信息resource, 开放给所有登陆成功的用户', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_resource` (`id`, `user`, `group`, `role`, `resource`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (34, '*', 'login', '*', 'allPage.uploadByBase64', 'allow', '上传文件resource, 开放给所有登陆成功的用户', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_resource` (`id`, `user`, `group`, `role`, `resource`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (35, '*', 'login', '*', 'allPage.uploadByStream', 'allow', '上传文件resource, 开放给所有登陆成功的用户', 'insert', NULL, NULL, NULL);
-INSERT INTO `_user_group_role_resource` (`id`, `user`, `group`, `role`, `resource`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (51, '*', 'adminGroup', 'appAdmin', '*', 'allow', '应用管理者, 赋予所有resource权限', 'insert', NULL, NULL, NULL);
+INSERT INTO `_user_group_role_resource` (`id`, `user`, `group`, `role`, `resource`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (51, '*', 'adminGroup', 'administrator', '*', 'allow', '应用管理者, 赋予所有resource权限', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_resource` (`id`, `user`, `group`, `role`, `resource`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (117, '*', 'wudang', 'boss', 'protocolDemo.*', 'allow', 'page01 内的所有操作; 开放给武当派掌门;', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_resource` (`id`, `user`, `group`, `role`, `resource`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (118, '*', 'wudang', 'disciple', 'protocolDemo.selectItemList', 'allow', 'page01 内的查询列表操作; 开放给武当派门徒;', 'insert', NULL, NULL, NULL);
 INSERT INTO `_user_group_role_resource` (`id`, `user`, `group`, `role`, `resource`, `allowOrDeny`, `desc`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (125, '*', 'gaibang', 'boss', 'frontendDemo01.*,frontendDemo02.*', 'allow', 'page02&page03 内的所有操作; 开放给丐帮掌门&门徒;', 'insert', NULL, NULL, NULL);
@@ -523,13 +521,12 @@ CREATE TABLE `_user_session` (
   KEY `userId_index` (`userId`),
   KEY `userId_deviceId_index` (`userId`,`deviceId`) USING BTREE,
   KEY `authToken_index` (`authToken`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户session表; deviceId 维度;软删除未启用;';
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户session表; deviceId 维度;软删除未启用;';
 
 -- ----------------------------
 -- Records of _user_session
 -- ----------------------------
 BEGIN;
-INSERT INTO `_user_session` (`id`, `userId`, `userIp`, `userIpRegion`, `userAgent`, `deviceId`, `deviceType`, `socketStatus`, `authToken`, `operation`, `operationByUserId`, `operationByUser`, `operationAt`) VALUES (22, 'admin', '127.0.0.1', '', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36', '127.0.0.1:7001_Mac.10.15.7_f6d7bfad_chrome', 'web', 'offline', 'e4_zCdPdmpPfgm4vVPPJDl-Xel7wSZ_ScWg_', 'jhUpdate', 'admin', '系统管理员', '2022-07-31T21:03:41+08:00');
 COMMIT;
 
 -- ----------------------------
