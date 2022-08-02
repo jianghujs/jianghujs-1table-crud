@@ -31,7 +31,7 @@
        </v-col>
 
        <v-col cols="12" xs="8" sm="4" md="3" xl="3" class="pr-0">
-         <v-text-field v-model="searchInput" label="表格过滤" class="cus-v-input" dense filled single-line></v-text-field>
+         <v-text-field color="success" v-model="searchInput" prefix="表格过滤：" class="cus-v-input" dense filled single-line></v-text-field>
        </v-col>
      </v-row>
      <v-data-table :headers="headers"
