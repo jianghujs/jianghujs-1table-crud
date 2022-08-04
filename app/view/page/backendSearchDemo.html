@@ -207,10 +207,7 @@ new Vue({
         return this.tableDataFromBackend;
       }
       return this.tableDataFromBackend.filter(({gender}) => gender === this.currentTableGenderType);
-    },
-    computedEditItem() {
-      return this.editItem;
-    },
+    }
   },
   watch: {},
   async created() {
@@ -270,14 +267,14 @@ new Vue({
     },
 
     async doCreateItem() {
-      delete this.computedEditItem.id;
+      const {id, ...data} = this.editItem;
       await window.vtoast.loading("新增学生");
       await window.jianghuAxios({
         data: {
           appData: {
             pageId: 'backendSearchDemo',
             actionId: 'insertItem',
-            actionData: this.computedEditItem
+            actionData: data
           }
         }
       })
@@ -302,16 +299,15 @@ new Vue({
     },
 
     async doUpdateItem() {
-      const id = this.computedEditItem.id;
-      delete this.computedEditItem.id;
+      const {id, ...data} = this.editItem;
       await window.vtoast.loading("修改学生");
       await window.jianghuAxios({
         data: {
           appData: {
             pageId: 'backendSearchDemo',
             actionId: 'updateItem',
-            actionData: this.computedEditItem,
-            where: {id: id}
+            actionData: data,
+            where: {id}
           }
         }
       })
@@ -324,7 +320,7 @@ new Vue({
     },
 
     async doDeleteItem() {
-      const { id } = this.computedEditItem;
+      const { id } = this.editItem;
       await window.vtoast.loading("删除学生");
       await window.jianghuAxios({
         data: {
