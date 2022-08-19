@@ -222,7 +222,7 @@ new Vue({
       const result = await window.jianghuAxios({
         data: {
           appData: {
-            pageId: 'uiActionComponent',
+            pageId: 'doUiActionComponent',
             actionId: 'selectItemList',
             actionData: {},
             where: {},
@@ -257,7 +257,7 @@ new Vue({
       await window.jianghuAxios({
         data: {
           appData: {
-            pageId: 'uiActionComponent',
+            pageId: 'doUiActionComponent',
             actionId: 'insertItem',
             actionData: this.editItem
           }
@@ -284,7 +284,7 @@ new Vue({
       await window.jianghuAxios({
         data: {
           appData: {
-            pageId: 'uiActionComponent',
+            pageId: 'doUiActionComponent',
             actionId: 'updateItem',
             actionData: actionData,
             where: {id}
@@ -304,7 +304,7 @@ new Vue({
       await window.jianghuAxios({
         data: {
           appData: {
-            pageId: 'uiActionComponent',
+            pageId: 'doUiActionComponent',
             actionId: 'deleteItem',
             actionData: {},
             where: {id: id}
