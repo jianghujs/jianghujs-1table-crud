@@ -11,17 +11,17 @@ const eggJianghuPath = path.join(eggJianghuPathTemp, '../');
 module.exports = appInfo => {
   assert(appInfo);
 
-  const appId = 'jianghujs_1table_crud';
+  const appId = 'jianghujs-1table-crud';
   const uploadDir = path.join(appInfo.baseDir, 'upload');
   const downloadBasePath = `/${appId}/upload`;
 
   return {
     appId,
-    appTitle: '江湖演示-初级',
+    appTitle: 'jianghujs-1table-crud',
     appLogo: `${appId}/public/img/logo.png`,
     appType: 'single',
     appDirectoryLink: '/',
-    indexPage: `/${appId}/page/doUiAction`,
+    indexPage: `/${appId}/page/studentManagement`,
     loginPage: `/${appId}/page/login`,
     helpPage: `/${appId}/page/help`,
     uploadDir,

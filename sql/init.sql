@@ -160,7 +160,7 @@ CREATE TABLE `_record_history` (
   PRIMARY KEY (`id`),
   KEY `index_record_id` (`recordId`),
   KEY `index_table_action` (`table`, `operation`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2149 COMMENT = '数据历史表';
+) ENGINE = InnoDB AUTO_INCREMENT = 2150 COMMENT = '数据历史表';
 
 
 
@@ -263,7 +263,7 @@ CREATE TABLE `_resource_request_log` (
   PRIMARY KEY (`id`),
   KEY `resourceId_index` (`resourceId`),
   KEY `packageId_index` (`packageId`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4825 COMMENT = '文件表; 软删除未启用;';
+) ENGINE = InnoDB AUTO_INCREMENT = 4833 COMMENT = '文件表; 软删除未启用;';
 
 
 
@@ -604,7 +604,7 @@ INSERT INTO `student` (`id`,`studentId`,`name`,`gender`,`dateOfBirth`,`classId`,
 INSERT INTO `student` (`id`,`studentId`,`name`,`gender`,`dateOfBirth`,`classId`,`level`,`bodyHeight`,`studentStatus`,`remarks`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (168,'100067','1111','male','2022-05-02','2021-01级-01班','01',NULL,NULL,NULL,'jhUpdate','admin','系统管理员','2022-05-01T23:38:23+08:00');
 INSERT INTO `student` (`id`,`studentId`,`name`,`gender`,`dateOfBirth`,`classId`,`level`,`bodyHeight`,`studentStatus`,`remarks`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (173,'121432','21434',NULL,NULL,'2021-01级-01班',NULL,NULL,NULL,NULL,'jhInsert','admin','系统管理员','2022-05-01T23:37:58+08:00');
 INSERT INTO `student` (`id`,`studentId`,`name`,`gender`,`dateOfBirth`,`classId`,`level`,`bodyHeight`,`studentStatus`,`remarks`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (175,'1000221','221','male','2022-05-08','2021-01级-02班','01',NULL,NULL,NULL,'jhUpdate','admin','系统管理员','2022-05-03T20:50:51+08:00');
-INSERT INTO `student` (`id`,`studentId`,`name`,`gender`,`dateOfBirth`,`classId`,`level`,`bodyHeight`,`studentStatus`,`remarks`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (176,'10002222',NULL,NULL,NULL,'111',NULL,NULL,NULL,NULL,'jhInsert','admin','系统管理员','2022-08-21T21:44:17+08:00');
+INSERT INTO `student` (`id`,`studentId`,`name`,`gender`,`dateOfBirth`,`classId`,`level`,`bodyHeight`,`studentStatus`,`remarks`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (176,'10002222',NULL,'111','11','111','11','11','11',NULL,'jhUpdate','admin','系统管理员','2022-08-22T10:53:00+08:00');
 
 
 
