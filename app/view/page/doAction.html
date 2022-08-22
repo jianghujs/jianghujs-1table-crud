@@ -47,7 +47,6 @@
 </v-container>
 <v-overlay app :value="isCreateDrawerShow || isUpdateDrawerShow"></v-overlay>
 <v-navigation-drawer v-model="isCreateDrawerShow" fixed temporary right width="80%" hide-overlay
-                     v-click-outside="{ closeConditional: () => !dialogIsOpen(), }"
                      class="elevation-24">
   <v-form v-model="isFormValid" v-if="isCreateDrawerShow" ref="form" lazy-validation>
     <v-row class="pt-8">
@@ -116,7 +115,6 @@
 </v-navigation-drawer>
 
 <v-navigation-drawer v-model="isUpdateDrawerShow" fixed temporary right width="80%" hide-overlay
-                     v-click-outside="{ closeConditional: () => !dialogIsOpen(), }"
                      class="elevation-24">
   <v-form v-model="isFormValid" v-if="isUpdateDrawerShow" ref="form" lazy-validation>
     <v-row class="pt-8">
@@ -240,35 +238,35 @@ new Vue({
     async doAction(actionId, actionData) {
       switch (actionId) {
         case 'refreshTableData':
-          if (await this.refreshTableData(actionData) === false) break;
+          await this.refreshTableData(actionData);
           break;
         case 'startInsertItem':
-          if (await this.clearCreateForm(actionData) === false) break;
-          if (await this.openCreateDrawer(actionData) === false) break;
+          await this.clearCreateForm(actionData);
+          await this.openCreateDrawer(actionData);
           break;
         case 'createItem':
-          if (await this.prepareValidate(actionData) === false) break;
-          if (await this.prepareCreateItem(actionData) === false) break;
-          if (await this.confirmCreateFormDialog(actionData) === false) break;
-          if (await this.doCreateItem(actionData) === false) break;
-          if (await this.closeCreateDrawer(actionData) === false) break;
-          if (await this.refreshTableData(actionData) === false) break;
+          await this.prepareValidate(actionData);
+          await this.prepareCreateItem(actionData);
+          await this.confirmCreateFormDialog(actionData);
+          await this.doCreateItem(actionData);
+          await this.closeCreateDrawer(actionData);
+          await this.refreshTableData(actionData);
           break;
         case 'startUpdateItem':
-          if (await this.fillUpdateForm(actionData) === false) break;
-          if (await this.openUpdateDrawer(actionData) === false) break;
+          await this.fillUpdateForm(actionData);
+          await this.openUpdateDrawer(actionData);
           break;
         case 'updateItem':
-          if (await this.prepareValidate(actionData) === false) break;
-          if (await this.confirmUpdateItemDialog(actionData) === false) break;
-          if (await this.doUpdateItem(actionData) === false) break;
-          if (await this.refreshTableData(actionData) === false) break;
-          if (await this.closeUpdateDrawer(actionData) === false) break;
+          await this.prepareValidate(actionData);
+          await this.confirmUpdateItemDialog(actionData);
+          await this.doUpdateItem(actionData);
+          await this.refreshTableData(actionData);
+          await this.closeUpdateDrawer(actionData);
           break;
         case 'deleteItem':
-          if (await this.confirmDeleteItemDialog(actionData) === false) break;
-          if (await this.doDeleteItem(actionData) === false) break;
-          if (await this.refreshTableData(actionData) === false) break;
+          await this.confirmDeleteItemDialog(actionData);
+          await this.doDeleteItem(actionData);
+          await this.refreshTableData(actionData);
           break;
         default:
           console.error("[doAction] actionId not find", { actionId });
@@ -301,7 +299,9 @@ new Vue({
     },
     // validate
     prepareValidate() {
-      return this.$refs.form.validate();
+      if (this.$refs.form.validate() === false) {
+        throw new Error("[prepareValidate] 参数不符合要求");
+      };
     },
     async openCreateDrawer() {
       this.isCreateDrawerShow = true;
@@ -310,8 +310,10 @@ new Vue({
       delete this.createItem.id;
     },
     async confirmCreateFormDialog() {
-      // retrun false 会中断后面的 uiAction function
-      return await window.confirmDialog({title: "新增", content: "确定新增吗？"});
+      // 中断后面的 uiAction function
+      if (await window.confirmDialog({title: "新增", content: "确定新增吗？"}) === false) {
+        throw new Error("[confirmCreateFormDialog] 否");
+      }
     },
     async doCreateItem() {
       await window.vtoast.loading("新增学生");
@@ -343,8 +345,9 @@ new Vue({
       // TODO: 对this.updateItem做一些数据处理
     },
     async confirmUpdateItemDialog() {
-      // retrun false 会中断后面的 uiAction function
-      return await window.confirmDialog({title: "修改", content: "确定修改吗？"});
+      if (await window.confirmDialog({title: "修改", content: "确定修改吗？"}) === false) {
+        throw new Error("[confirmCreateFormDialog] 否");
+      }
     },
     async doUpdateItem() {
       const {id, ...actionData} = this.updateItem;
@@ -373,7 +376,9 @@ new Vue({
         window.vtoast.fail("数据异常");
         return
       }
-      return await window.confirmDialog({title: "删除", content: "确定删除吗？"});
+      if (await window.confirmDialog({title: "删除", content: "确定删除吗？"}) === false) {
+        throw new Error("[confirmCreateFormDialog] 否");
+      }
     },
     async doDeleteItem({item}) {
       const {id} = item;
@@ -392,10 +397,6 @@ new Vue({
     },
     // ====================================Update End===========================================
 
-
-    dialogIsOpen() {
-      return window.dialogIsOpen;
-    },
   }
 })
 </script>
