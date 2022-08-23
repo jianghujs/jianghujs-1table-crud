@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "egg": "^2.15.1",
-    "@jianghujs/jianghu": "3.0.11",
+    "@jianghujs/jianghu": "3.0.42",
     "egg-scripts": "^2.11.0"
   },
   "devDependencies": {
@@ -29,6 +29,8 @@
     "stop": "egg-scripts stop --title=jianghujs-1table-crud",
     "dev": "egg-bin dev --port=7001",
     "debug": "egg-bin debug",
+    "jianghuConfigImportData": "jianghu jianghuConfigImportData",
+    "jianghuConfigDumpData": "jianghu jianghuConfigDumpData",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",
