@@ -418,7 +418,7 @@ new Vue({
     */
     async confirmUpdateItemDialog() {
       if (await window.confirmDialog({title: "修改", content: "确定修改吗？"}) === false) {
-        throw new Error("[confirmCreateFormDialog] 否");
+        throw new Error("[confirmUpdateItemDialog] 否");
       }
     },
     async doUpdateItem() {
@@ -447,7 +447,9 @@ new Vue({
      * main:   [{"function":"doDeleteItem"},{"function":"refreshTableData"}]
     */
     async confirmDeleteItemDialog() {
-      return window.confirmDialog({title: '删除', content: '确定删除吗？'});
+      if (await window.confirmDialog({title: "删除", content: "确定删除吗？"}) === false) {
+        throw new Error("[confirmDeleteItemDialog] 否");
+      }
     },
     async doDeleteItem({item}) {
       const { id } = item;
