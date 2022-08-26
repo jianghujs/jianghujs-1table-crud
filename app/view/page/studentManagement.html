@@ -25,7 +25,7 @@ SQL END!-->
           class="elevation-0"
           color="success"
           dark
-          @click="doAction('refreshTableData')"
+          @click="doUiAction('refreshTableData')"
         >
           查询
         </v-btn>
@@ -39,7 +39,7 @@ SQL END!-->
   <v-row class="ma-0 pa-xs-4 align-center flex-none pt-0 " :class="{'pa-4': !isMobile, 'pb-0': !isMobile, 'pa-2': isMobile}">
 
       <v-col cols="12" xs="4" sm="4" md="4" xl="4" class="pl-0">
-        <v-btn color="success" dark class="elevation-0 mr-2" @click="doAction('startCreateItem')">新增</v-btn>
+        <v-btn color="success" dark class="elevation-0 mr-2" @click="doUiAction('startCreateItem')">新增</v-btn>
         <span class="body-2">共{{ tableData.length }}条记录</span>
       </v-col>
 
@@ -70,8 +70,8 @@ SQL END!-->
                   checkbox-color="success"
                   class="elevation-0 mt-0 mb-xs-4 flex-fill d-flex flex-column">
       <template v-slot:item.action="{ item }">
-        <v-btn small class=" success" @click="doAction('startUpdateItem', {item})">修改</v-btn>
-        <v-btn small class=" error" @click="doAction('deleteItem', {item})">删除</v-btn>
+        <v-btn small class=" success" @click="doUiAction('startUpdateItem', {item})">修改</v-btn>
+        <v-btn small class=" error" @click="doUiAction('deleteItem', {item})">删除</v-btn>
       </template>
     </v-data-table>
   </v-card>
@@ -88,55 +88,55 @@ SQL END!-->
       </v-btn>
     </v-row>
     <v-row :class="{'px-10': !isMobile, 'px-3': isMobile, 'pb-7': isMobile}">
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">学生ID</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="addItem['studentId']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">学生名字</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="addItem['name']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">性别</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="addItem['gender']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">出生日期</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="addItem['dateOfBirth']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">班级ID</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="addItem['classId']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">年级</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="addItem['level']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">身高</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="addItem['bodyHeight']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">学生状态</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="addItem['studentStatus']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">备注</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="addItem['remarks']"></v-text-field>
       </v-col>
-       
+
     </v-row>
     <v-row class="justify-end pr-6">
-      <v-btn color="success" @click="doAction('createItem')" :style="{width: isMobile ? 'calc(100% - 45px)' : '200px'}" :class="{'mb-2': isMobile, 'mr-4': isMobile}">新增</v-btn>
+      <v-btn color="success" @click="doUiAction('createItem')" :style="{width: isMobile ? 'calc(100% - 45px)' : '200px'}" :class="{'mb-2': isMobile, 'mr-4': isMobile}">新增</v-btn>
       <v-btn class="ml-2" @click="isAddDrawerShow = false" :style="{width: isMobile ? 'calc(100% - 45px)' : '200px'}" :class="{'mr-4': isMobile}">取消</v-btn>
     </v-row>
   </v-form>
@@ -154,52 +154,52 @@ SQL END!-->
       </v-btn>
     </v-row>
     <v-row :class="{'px-10': !isMobile, 'px-3': isMobile, 'pb-7': isMobile}">
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">学生ID</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="editItem['studentId']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">学生名字</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="editItem['name']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">性别</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="editItem['gender']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">出生日期</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="editItem['dateOfBirth']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">班级ID</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="editItem['classId']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">年级</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="editItem['level']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">身高</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="editItem['bodyHeight']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">学生状态</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="editItem['studentStatus']"></v-text-field>
       </v-col>
-       
+
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">备注</span>
         <v-text-field class="cus-v-input " dense filled single-line v-model="editItem['remarks']"></v-text-field>
       </v-col>
-       
+
 <!--      <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">-->
 <!--        &lt;!&ndash; 必填字段样式 demo :rules="requireRules" &ndash;&gt;-->
 <!--            <span class="inputLabel">学生ID</span>-->
@@ -222,7 +222,7 @@ SQL END!-->
 <!--      </v-col>-->
     </v-row>
     <v-row class="justify-end pr-6">
-      <v-btn color="success" @click="doAction('updateItem')" :style="{width: isMobile ? 'calc(100% - 45px)' : '200px'}" :class="{'mb-2': isMobile, 'mr-4': isMobile}">保存</v-btn>
+      <v-btn color="success" @click="doUiAction('updateItem')" :style="{width: isMobile ? 'calc(100% - 45px)' : '200px'}" :class="{'mb-2': isMobile, 'mr-4': isMobile}">保存</v-btn>
       <v-btn class="ml-2" @click="isEditDrawerShow = false" :style="{width: isMobile ? 'calc(100% - 45px)' : '200px'}" :class="{'mr-4': isMobile}">取消</v-btn>
     </v-row>
   </v-form>
@@ -239,8 +239,8 @@ new Vue({
   el: '#app',
   template: '#app-template',
   vuetify: new Vuetify(),
-  mixins: [window.jianghuUiActionMixins],
   data: () => ({
+    isMobile: window.innerWidth < 600,
     // 表格相关数据
     isFormValid: true,
     requireRules: [
@@ -255,19 +255,20 @@ new Vue({
     },
     searchInput: null,
     isTableLoading: true,
+    tableData: [],
     tableDataFromBackend: [],
     headers: [
       {text: "ID", value: "id", width: 120, class: 'fixed', cellClass: 'fixed'},
-       
-      {text: "学生ID", value: "studentId", width: 120}, 
-      {text: "学生名字", value: "name", width: 120}, 
-      {text: "性别", value: "gender", width: 120}, 
-      {text: "出生日期", value: "dateOfBirth", width: 120}, 
-      {text: "班级ID", value: "classId", width: 120}, 
-      {text: "年级", value: "level", width: 120}, 
-      {text: "身高", value: "bodyHeight", width: 120}, 
-      {text: "学生状态", value: "studentStatus", width: 120}, 
-      {text: "备注", value: "remarks", width: 120}, 
+
+      {text: "学生ID", value: "studentId", width: 120},
+      {text: "学生名字", value: "name", width: 120},
+      {text: "性别", value: "gender", width: 120},
+      {text: "出生日期", value: "dateOfBirth", width: 120},
+      {text: "班级ID", value: "classId", width: 120},
+      {text: "年级", value: "level", width: 120},
+      {text: "身高", value: "bodyHeight", width: 120},
+      {text: "学生状态", value: "studentStatus", width: 120},
+      {text: "备注", value: "remarks", width: 120},
       {text: "操作者", value: "operationByUser", width: 120},
       {text: "操作时间", value: "operationAt", width: 250},
       {text: '操作', value: 'action', align: 'center', sortable: false, width: 200, class: 'fixed', cellClass: 'fixed'},
@@ -277,22 +278,12 @@ new Vue({
     isAddDrawerShow: false,
     addItem: {}
   }),
-  computed: {
-    isMobile() {
-      return window.innerWidth < 600;
-    },
-    tableData() {
-      return this.tableDataFromBackend;
-    }
-  },
   watch: {},
   async created() {
-    this.doAction('refreshTableData');
+    this.doUiAction('refreshTableData');
   },
-  mounted() {},
   methods: {
-
-    async doAction(actionId, actionData) {
+    async doUiAction(actionId, actionData) {
       switch (actionId) {
         case 'refreshTableData':
           await this.refreshTableData(actionData);
@@ -323,13 +314,13 @@ new Vue({
           await this.refreshTableData(actionData);
           break;
         default:
-          console.error("[doAction] actionId not find", { actionId });
+          console.error("[doUiAction] actionId not find", { actionId });
           break;
       }
     },
 
     // =================================uiAction 公共方法 start ======================================
-    /** 
+    /**
      * uiActionId:  refreshTableData
      * description: ✅获取表格数据
      * main:   [{"function":"refreshTableData"}]
@@ -351,11 +342,12 @@ new Vue({
       });
 
       this.tableDataFromBackend = rows;
+      this.tableData = rows;
       this.isTableLoading = false;
     },
     // =================================uiAction 公共方法 end ======================================
 
-    /** 
+    /**
      * uiActionId:  startCreateItem
      * description: ✅开始新增
      * main:   [{"function":"clearItemData"},{"function":"openCreateItemDialog"}]
@@ -367,7 +359,7 @@ new Vue({
       this.isAddDrawerShow = true;
     },
 
-    /** 
+    /**
      * uiActionId:  createItem
      * description: ✅新增
      * before: [{"function":"confirmCreateItemDialog"}]
@@ -398,7 +390,7 @@ new Vue({
       this.isAddDrawerShow = false;
     },
 
-    /** 
+    /**
      * uiActionId:  startUpdateItem
      * description: ✅开始更新
      * main:   [{"function":"prepareItemData"},{"function":"openUpdateDialog"}]
@@ -409,7 +401,7 @@ new Vue({
     async openUpdateDialog() {
       this.isEditDrawerShow = true;
     },
-    /** 
+    /**
      * uiActionId:  updateItem
      * description: ✅更新
      * before: [{"function":"confirmUpdateItemDialog"}]
@@ -440,7 +432,7 @@ new Vue({
       this.isEditDrawerShow = false;
     },
 
-    /** 
+    /**
      * uiActionId:  deleteItem
      * description: ✅删除
      * before: [{"function":"confirmDeleteItemDialog"}]
