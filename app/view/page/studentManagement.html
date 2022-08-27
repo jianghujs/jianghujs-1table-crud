@@ -283,35 +283,35 @@ new Vue({
     this.doUiAction('refreshTableData');
   },
   methods: {
-    async doUiAction(actionId, actionData) {
+    async doUiAction(actionId, uiActionData) {
       switch (actionId) {
         case 'refreshTableData':
-          await this.refreshTableData(actionData);
+          await this.refreshTableData(uiActionData);
           break;
         case 'startCreateItem':
-          await this.clearItemData(actionData);
-          await this.openCreateItemDialog(actionData);
+          await this.clearItemData(uiActionData);
+          await this.openCreateItemDialog(uiActionData);
           break;
         case 'createItem':
-          await this.confirmCreateItemDialog(actionData);
-          await this.doCreateItem(actionData);
-          await this.refreshTableData(actionData);
-          await this.closeCreateDrawer(actionData);
+          await this.confirmCreateItemDialog(uiActionData);
+          await this.doCreateItem(uiActionData);
+          await this.refreshTableData(uiActionData);
+          await this.closeCreateDrawer(uiActionData);
           break;
         case 'startUpdateItem':
-          await this.prepareItemData(actionData);
-          await this.openUpdateDialog(actionData);
+          await this.prepareItemData(uiActionData);
+          await this.openUpdateDialog(uiActionData);
           break;
         case 'updateItem':
-          await this.confirmUpdateItemDialog(actionData);
-          await this.doUpdateItem(actionData);
-          await this.refreshTableData(actionData);
-          await this.closeUpdateDrawer(actionData);
+          await this.confirmUpdateItemDialog(uiActionData);
+          await this.doUpdateItem(uiActionData);
+          await this.refreshTableData(uiActionData);
+          await this.closeUpdateDrawer(uiActionData);
           break;
         case 'deleteItem':
-          await this.confirmDeleteItemDialog(actionData);
-          await this.doDeleteItem(actionData);
-          await this.refreshTableData(actionData);
+          await this.confirmDeleteItemDialog(uiActionData);
+          await this.doDeleteItem(uiActionData);
+          await this.refreshTableData(uiActionData);
           break;
         default:
           console.error("[doUiAction] actionId not find", { actionId });
