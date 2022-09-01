@@ -248,18 +248,11 @@ new Vue({
     ],
     constantCollection: {
     },
-
-    serverSearchInput: {
-      studentId: null,
-      classId: null
-    },
     searchInput: null,
     isTableLoading: true,
     tableData: [],
-    tableDataFromBackend: [],
     headers: [
       {text: "ID", value: "id", width: 120, class: 'fixed', cellClass: 'fixed'},
-
       {text: "学生ID", value: "studentId", width: 120},
       {text: "学生名字", value: "name", width: 120},
       {text: "性别", value: "gender", width: 120},
@@ -327,7 +320,6 @@ new Vue({
     */
     async refreshTableData() {
       this.isTableLoading = true;
-      const serverSearchInput = _.pickBy(this.serverSearchInput, value=> !!value);
       const { data: { appData: { rows } } } = await window.jianghuAxios({
         data: {
           appData: {
@@ -335,13 +327,11 @@ new Vue({
             actionId: 'selectItemList',
             actionData: {},
             where: {},
-            whereLike: serverSearchInput,
             orderBy: [{column: 'operationAt', order: 'desc'}]
           }
         }
       });
 
-      this.tableDataFromBackend = rows;
       this.tableData = rows;
       this.isTableLoading = false;
     },
