@@ -1,4 +1,4 @@
-# jianghujs_demo_onetable
+# jianghujs-1table-crud
 
 ## 配置
 
