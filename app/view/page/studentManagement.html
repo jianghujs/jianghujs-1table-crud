@@ -91,7 +91,7 @@ SQL END!-->
        
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
         <span class="inputLabel">学生ID</span>
-        <v-text-field class="cus-v-input " aria-required="" dense filled single-line v-model="addItem['studentId']"></v-text-field>
+        <v-text-field class="cus-v-input " :rules="requireRules" required dense filled single-line v-model="addItem['studentId']"></v-text-field>
       </v-col>
        
       <v-col cols="12" sm="12" md="4" xl="3" :class="{'pa-0': isMobile, 'px-4': isMobile, 'pt-6': isMobile}">
