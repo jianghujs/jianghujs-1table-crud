@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@jianghujs/jianghu": "5.0.7",
+    "dotenv": "^16.3.1",
     "egg": "^2.15.1",
     "egg-scripts": "^2.11.0"
   },
@@ -24,7 +25,7 @@
   "engines": {
     "node": ">=10.0.0"
   },
-  "scripts": { 
+  "scripts": {
     "start": "egg-scripts start --workers=2 --daemon --port=7201 --title=jianghujs-1table-crud",
     "stop": "egg-scripts stop --title=jianghujs-1table-crud",
     "dev": "egg-bin dev --port=7201",
