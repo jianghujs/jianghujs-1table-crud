@@ -1,42 +1,45 @@
 const content = {
-  pageType: "jh-page", pageId: "studentManagement", pageName: "student页面", 
+  pageType: "jh-page", pageId: "studentManagement", table: "student", pageName: "学生管理", template: "jhMobileTemplateV4", version: 'v2',
   resourceList: [
     {
       actionId: "selectItemList",
       resourceType: "sql",
-      desc: "✅查询列表-student",
+      desc: "✅查询列表",
       resourceData: { table: "student", operation: "select" }
     },
     {
       actionId: "insertItem",
       resourceType: "sql",
-      desc: "✅添加-student",
+      // resourceHook: { before: [{service:"common",serviceFunction:"generateBizIdOfBeforeHook"}] },
+      desc: "✅添加",
       resourceData: { table: "student", operation: "jhInsert" }
     },
     {
       actionId: "updateItem",
       resourceType: "sql",
-      desc: "✅更新-student",
+      desc: "✅更新",
       resourceData: { table: "student", operation: "jhUpdate" }
     },
     {
       actionId: "deleteItem",
       resourceType: "sql",
-      desc: "✅删除-student",
+      desc: "✅删除",
       resourceData: { table: "student", operation: "jhDelete" }
     }
   ], // { actionId: '', resourceType: '', resourceData: {}, resourceHook: {}, desc: '' }
   headContent: [
-    { tag: 'jh-page-title', value: "学生列表", attrs: { cols: 12, sm: 6, md:4 }, helpBtn: true, slot: [] },
-    { tag: 'v-spacer' },
+    { tag: 'jh-page-title', value: "学生管理", attrs: { cols: 12, sm: 6, md:4 }, helpBtn: true, slot: [] },
+
+    { tag: 'v-spacer'},
     { 
       tag: 'jh-search', 
       attrs: { cols: 12, sm: 6, md:8 },
       value: [
-        { tag: "v-text-field", model: "serverSearchWhereLike.className", attrs: {prefix: '前缀'} },
+        { tag: "v-text-field", model: "keyword", colAttrs: { cols: 12, md: 3 }, attrs: {prefix: '标题', ':disabled': 'keywordFieldList.length == 0', ':placeholder': "!keywordFieldList.length ? '未设置搜索字段' : ''"} },
+        // { tag: "v-text-field", model: "serverSearchWhereLike.className", colAttrs: { cols: 12, md: 3 }, attrs: {prefix: '前缀'} },
       ], 
       searchBtn: true
-    }
+    },
   ],
   pageContent: [
     {
@@ -45,39 +48,32 @@ const content = {
       colAttrs: { clos: 12 },
       cardAttrs: { class: 'rounded-lg elevation-0' },
       headActionList: [
-        { tag: 'v-btn', value: '新增', attrs: { color: 'success', class: 'mr-2', '@click': 'doUiAction("startCreateItem")', small: true } },
+        { tag: 'v-btn', value: '新增', attrs: { color: 'success', class: 'mr-2', '@click': 'doUiAction("startCreateItem")' }, quickAttrs: ['small'] },
         { tag: 'v-spacer' },
-        // 默认筛选
-        {
-          tag: 'v-col',
-          attrs: { cols: '12', sm: '6', md: '3', xs: 8, class: 'pa-0' },
-          value: [
-            { tag: 'v-text-field', attrs: {prefix: '筛选', 'v-model': 'searchInput', class: 'jh-v-input', ':dense': true, ':filled': true, ':single-line': true} },
-          ],
-        }
+        /*html*/`
+        <v-col cols="12" sm="6" md="3" xs="8" class="pa-0">
+          <v-text-field prefix="筛选" v-model="searchInput" class="jh-v-input" dense filled single-line></v-text-field>
+        </v-col>
+        `
       ],
       headers: [
-        {text: "学生ID", value: "studentId", width: 80}, 
-        {text: "学生名字", value: "name", width: 90}, 
-        {text: "性别", value: "gender", width: 60}, 
-        {text: "出生日期", value: "dateOfBirth", width: 120}, 
-        {text: "班级ID", value: "classId", width: 120}, 
-        {text: "年级", value: "level", width: 120}, 
-        {text: "身高", value: "bodyHeight", width: 60}, 
-        {text: "学生状态", value: "studentStatus", width: 80}, 
-        {text: "备注", value: "remarks", width: 120}, 
-        {text: "操作者", value: "operationByUser", width: 90},
-        {text: "操作时间", value: "operationAt", width: 150},
+        { text: "学生ID", value: "studentId", width: 80, sortable: true },
+        { text: "学生名字", value: "name", width: 80, sortable: true },
+        { text: "性别", value: "gender", width: 80, sortable: true },
+        { text: "出生日期", value: "dateOfBirth", width: 80, sortable: true },
+        { text: "班级ID", value: "classId", width: 80, sortable: true },
+        { text: "年级", value: "level", width: 80, sortable: true },
+        { text: "身高", value: "bodyHeight", width: 80, sortable: true },
+        { text: "学生状态", value: "studentStatus", width: 80, sortable: true },
+        { text: "备注", value: "remarks", width: 80, sortable: true },
         { text: "操作", value: "action", type: "action", width: 'window.innerWidth < 500 ? 70 : 120', align: "center", class: "fixed", cellClass: "fixed" },
-
-        // width 表达式需要使用字符串包裹
       ],
-      value: [
-        // vuetify table custom slot
-      ],
+      value: [],
       rowActionList: [
-        { text: '编辑', icon: 'mdi-note-edit-outline', color: 'success', click: 'doUiAction("startUpdateItem", item)' }, // 简写支持 pc 和 移动端折叠
-        { text: '删除', icon: 'mdi-trash-can-outline', color: 'error', click: 'doUiAction("deleteItem", item)' } // 简写支持 pc 和 移动端折叠
+        // 简写支持 pc 和 移动端折叠
+         
+        { text: '详情', icon: 'mdi-note-edit-outline', color: 'success', click: 'doUiAction("startUpdateItem", item)' },
+        { text: '删除', icon: 'mdi-trash-can-outline', color: 'error', click: 'doUiAction("deleteItem", item)' }
       ],
     }
   ],
@@ -96,30 +92,25 @@ const content = {
           type: "form", 
           formItemList: [
             /**
-             * colAtts: { cols: 12, md: 3 } // 表单父容器栅格设置
-             * attrs: {} // 表单项属性
-             */
-            { label: "id", model: "id", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "学生ID", model: "studentId", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "学生名字", model: "name", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "性别", model: "gender", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "出生日期", model: "dateOfBirth", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "班级ID", model: "classId", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "年级", model: "level", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "身高", model: "bodyHeight", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "学生状态", model: "studentStatus", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "备注", model: "remarks", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "操作", model: "operation", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "操作者userId", model: "operationByUserId", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "操作者用户名", model: "operationByUser", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "操作时间", model: "operationAt", tag: "v-text-field", rules: "validationRules.requireRules",   },
-
+            * colAtts: { cols: 12, md: 3 } // 表单父容器栅格设置
+            * attrs: {} // 表单项属性
+            */
+            { label: "学生ID", model: "studentId", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "学生名字", model: "name", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "性别", model: "gender", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "出生日期", model: "dateOfBirth", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "班级ID", model: "classId", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "年级", model: "level", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "身高", model: "bodyHeight", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "学生状态", model: "studentStatus", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "备注", model: "remarks", tag: "v-text-field", rules: "validationRules.requireRules" },
           ], 
           action: [{
             tag: "v-btn",
             value: "新增",
             attrs: {
               color: "success",
+              class: 'ml-2',
               ':small': true,
               '@click': "doUiAction('createItem')"
             }
@@ -132,54 +123,50 @@ const content = {
       tag: 'jh-update-drawer',
       key: "update",
       attrs: {},
-      title: '编辑',
+      title: '详情',
       headSlot: [
         { tag: 'v-spacer'}
       ],
       contentList: [
         { 
-          label: "编辑", 
+          label: "详情", 
           type: "form", 
           formItemList: [
             /**
-             * colAtts: { cols: 12, md: 3 } // 表单父容器栅格设置
-             * attrs: {} // 表单项属性
-             */
-            { label: "id", model: "id", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "学生ID", model: "studentId", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "学生名字", model: "name", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "性别", model: "gender", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "出生日期", model: "dateOfBirth", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "班级ID", model: "classId", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "年级", model: "level", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "身高", model: "bodyHeight", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "学生状态", model: "studentStatus", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "备注", model: "remarks", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "操作", model: "operation", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "操作者userId", model: "operationByUserId", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "操作者用户名", model: "operationByUser", tag: "v-text-field", rules: "validationRules.requireRules",   },
-            { label: "操作时间", model: "operationAt", tag: "v-text-field", rules: "validationRules.requireRules",   },
-
+            * colAtts: { cols: 12, md: 3 } // 表单父容器栅格设置
+            * attrs: {} // 表单项属性
+            */
+            { label: "学生ID", model: "studentId", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "学生名字", model: "name", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "性别", model: "gender", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "出生日期", model: "dateOfBirth", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "班级ID", model: "classId", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "年级", model: "level", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "身高", model: "bodyHeight", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "学生状态", model: "studentStatus", tag: "v-text-field", rules: "validationRules.requireRules" },
+            { label: "备注", model: "remarks", tag: "v-text-field", rules: "validationRules.requireRules" },
           ], 
           action: [{
             tag: "v-btn",
-            value: "编辑",
+            value: "保存",
             attrs: {
               color: "success",
+              class: 'ml-2',
               ':small': true,
               '@click': "doUiAction('updateItem')"
             }
           }],
         },
+         
       ]
-    },
-    
+    }
   ],
-  includeList: [], // { type: < js | css | html | vueComponent >, path: ''}
+  includeList: [
+  ], // { type: < js | css | html | vueComponent >, path: ''}
   common: { 
-    
     data: {
-      constantObj: {},
+      constantObj: {
+      },
       validationRules: {
         requireRules: [
           v => !!v || '必填',
@@ -189,11 +176,14 @@ const content = {
       serverSearchWhere: { }, // 服务端查询
       serverSearchWhereIn: { }, // 服务端 in 查询
       filterMap: {}, // 结果筛选条件
+
+      keyword: '', // 搜索关键字
+      keywordFieldList: [], // 搜索关键字对应字段
+       
     },
     dataExpression: {
       isMobile: 'window.innerWidth < 500'
     }, // data 表达式
-    watch: {},
     computed: {
       tableDataComputed() {
         if(this.filterMap) {
@@ -210,10 +200,16 @@ const content = {
         }
       },
     },
-    doUiAction: {}, // 额外uiAction { [key]: [action1, action2]}
-    methods: {}
+    async created() {
+      await this.doUiAction('getTableData');
+    },
+    doUiAction: {
+    }, // 额外uiAction { [key]: [action1, action2]}
+    methods: {
+       
+    }
   },
-  
+   
 };
 
 module.exports = content;
